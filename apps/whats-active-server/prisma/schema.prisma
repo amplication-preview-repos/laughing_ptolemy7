@@ -1,0 +1,48 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model BulkMessage {
+  content   String?
+  createdAt DateTime  @default(now())
+  id        String    @id @default(cuid())
+  sender    String?
+  timestamp DateTime?
+  updatedAt DateTime  @updatedAt
+}
+
+model Contact {
+  belongsTo   String?
+  createdAt   DateTime @default(now())
+  id          String   @id @default(cuid())
+  name        String?
+  phoneNumber String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Message {
+  content   String?
+  createdAt DateTime  @default(now())
+  id        String    @id @default(cuid())
+  recipient String?
+  sender    String?
+  timestamp DateTime?
+  updatedAt DateTime  @updatedAt
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
